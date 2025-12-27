@@ -1,0 +1,146 @@
+{% extends "blog/base.html"%}
+{% block content%}
+    <div class="about_content" data-aos="fade-up">
+        <!-- Animated Header -->
+        <h1 class="text-center mb-4 animate__animated animate__fadeInDown gradient-text">
+            <i class="fas fa-university me-3"></i>
+            <span id="typed-title"></span>
+        </h1>
+        <hr class="mb-4" style="height: 3px; background: linear-gradient(to right, #124E66, #04bde2); border: none;">
+        
+        <!-- Main Content Cards -->
+        <div class="row g-4">
+            <!-- About IIUC Card -->
+            <div class="col-md-12" data-aos="zoom-in" data-aos-delay="200">
+                <div class="card border-0 shadow-lg h-100" style="border-radius: 16px; overflow: hidden;">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary text-white rounded-circle p-3 me-3" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-graduation-cap fa-2x"></i>
+                            </div>
+                            <h3 class="mb-0 gradient-text">About IIUC</h3>
+                        </div>
+                        <p class="lead" style="line-height: 1.8; color: #555;">
+                            <strong>International Islamic University Chittagong (IIUC)</strong> is a prestigious institution dedicated to academic excellence and holistic development. IIUC provides students with exciting opportunities and hosts wonderful events throughout the academic year.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Our Mission Card -->
+            <div class="col-md-6" data-aos="fade-right" data-aos-delay="300">
+                <div class="card border-0 shadow-lg h-100" style="border-radius: 16px; overflow: hidden; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-success text-white rounded-circle p-3 me-3" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-bullseye fa-2x"></i>
+                            </div>
+                            <h3 class="mb-0 gradient-text">Our Mission</h3>
+                        </div>
+                        <p style="line-height: 1.8; color: #555;">
+                            To create a vibrant platform where students can share their experiences, connect with peers, and build lasting memories. We believe every story matters and contributes to our university's rich tapestry.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Community Features Card -->
+            <div class="col-md-6" data-aos="fade-left" data-aos-delay="400">
+                <div class="card border-0 shadow-lg h-100" style="border-radius: 16px; overflow: hidden; background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-warning text-white rounded-circle p-3 me-3" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-users fa-2x"></i>
+                            </div>
+                            <h3 class="mb-0 text-white">Community</h3>
+                        </div>
+                        <p style="line-height: 1.8; color: #333;">
+                            <strong>Connect</strong> with like-minded individuals, <strong>share</strong> your daily experiences, and <strong>find inspiration</strong> from stories of those who came before you. This is your space to grow and thrive!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Platform Purpose -->
+            <div class="col-md-12" data-aos="fade-up" data-aos-delay="500">
+                <div class="card border-0 shadow-lg" style="border-radius: 16px; overflow: hidden;">
+                    <div class="card-body p-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-white text-primary rounded-circle p-3 me-3" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-heart fa-2x"></i>
+                            </div>
+                            <h3 class="mb-0 text-white">Why This Platform?</h3>
+                        </div>
+                        <p class="lead mb-3" style="line-height: 1.8;">
+                            That's the good side of things. Every coin has 2 sides and so does college life here. So, here's a place to share all those stories about IIUC. Be it good or bad, success or failures. Every story reveals a hidden part of this family.
+                        </p>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check-circle me-2"></i>Share your journey and experiences</li>
+                            <li class="mb-2"><i class="fas fa-check-circle me-2"></i>Connect with peers and mentors</li>
+                            <li class="mb-2"><i class="fas fa-check-circle me-2"></i>Discover campus events and activities</li>
+                            <li class="mb-2"><i class="fas fa-check-circle me-2"></i>Build lasting friendships</li>
+                            <li><i class="fas fa-check-circle me-2"></i>Find motivation and inspiration</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="row mt-5 g-4">
+            <div class="col-md-4" data-aos="flip-left" data-aos-delay="100">
+                <div class="text-center p-4 card border-0 shadow h-100" style="border-radius: 16px;">
+                    <div class="mb-3">
+                        <i class="fas fa-blog fa-4x" style="color: #124E66;"></i>
+                    </div>
+                    <h4 class="gradient-text">Blog Posts</h4>
+                    <p class="text-muted">Share your thoughts, experiences, and stories with the community</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="flip-left" data-aos-delay="200">
+                <div class="text-center p-4 card border-0 shadow h-100" style="border-radius: 16px;">
+                    <div class="mb-3">
+                        <i class="fas fa-calendar-alt fa-4x" style="color: #04bde2;"></i>
+                    </div>
+                    <h4 class="gradient-text">Events</h4>
+                    <p class="text-muted">Stay updated with campus events and participate actively</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="flip-left" data-aos-delay="300">
+                <div class="text-center p-4 card border-0 shadow h-100" style="border-radius: 16px;">
+                    <div class="mb-3">
+                        <i class="fas fa-user-friends fa-4x" style="color: #2E7D96;"></i>
+                    </div>
+                    <h4 class="gradient-text">Community</h4>
+                    <p class="text-muted">Build meaningful connections and grow together</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="text-center mt-5 p-5 card border-0 shadow-lg" style="border-radius: 16px; background: linear-gradient(135deg, #124E66 0%, #2E7D96 100%); color: white;" data-aos="zoom-in" data-aos-delay="600">
+            <h2 class="mb-3 animate__animated animate__pulse animate__infinite animate__slow">
+                <i class="fas fa-rocket me-2"></i>Join Our Community Today!
+            </h2>
+            <p class="lead mb-4">Start sharing your stories and be part of something amazing</p>
+            <a href="{% url 'register' %}" class="btn btn-light btn-lg px-5 py-3" style="border-radius: 50px; font-weight: 600;">
+                <i class="fas fa-user-plus me-2"></i>Get Started
+            </a>
+        </div>
+    </div>
+
+    <!-- Typed.js Animation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var typed = new Typed('#typed-title', {
+                strings: ['About Us', 'About IIUC', 'Our Community', 'Your Story Matters'],
+                typeSpeed: 80,
+                backSpeed: 50,
+                backDelay: 2000,
+                loop: true,
+                showCursor: true,
+                cursorChar: '|'
+            });
+        });
+    </script>
+{% endblock content %}

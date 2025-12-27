@@ -1,0 +1,244 @@
+# Campus Connect - Django Project .gitignore
+
+# ============================================================================
+# Python
+# ============================================================================
+*.py[cod]
+*$py.class
+*.so
+.Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# ============================================================================
+# Virtual Environment
+# ============================================================================
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ============================================================================
+# Django
+# ============================================================================
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+/staticfiles/
+/static/
+/media/
+
+# Django migrations - OPTIONAL (uncomment if you want to ignore migrations)
+# **/migrations/*.py
+# **/migrations/*.pyc
+# !**/migrations/__init__.py
+
+# ============================================================================
+# Environment Variables & Secrets
+# ============================================================================
+.env
+.env.local
+.env.production
+.env.development
+control.env
+*.env
+
+# Secret key and sensitive configs
+secrets.json
+config.ini
+
+# ============================================================================
+# Database
+# ============================================================================
+*.sqlite3
+*.db
+*.sqlite
+
+# ============================================================================
+# IDE & Editors
+# ============================================================================
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+.idea_modules/
+
+# VS Code
+.vscode/
+*.code-workspace
+.history/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+.*.sw?
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# ============================================================================
+# Operating System
+# ============================================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# ============================================================================
+# Testing
+# ============================================================================
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.pytest_cache/
+.hypothesis/
+nosetests.xml
+coverage.xml
+*.cover
+.cache
+
+# ============================================================================
+# Documentation
+# ============================================================================
+docs/_build/
+site/
+.mkdocs/
+
+# ============================================================================
+# Jupyter Notebook
+# ============================================================================
+.ipynb_checkpoints
+*.ipynb
+
+# ============================================================================
+# Backup files
+# ============================================================================
+*.bak
+*.backup
+*.tmp
+*.temp
+*~
+
+# ============================================================================
+# Package Management
+# ============================================================================
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.manifest
+*.spec
+
+# ============================================================================
+# Celery
+# ============================================================================
+celerybeat-schedule
+celerybeat.pid
+
+# ============================================================================
+# Translations
+# ============================================================================
+*.mo
+*.pot
+
+# ============================================================================
+# Security & Keys
+# ============================================================================
+*.pem
+*.key
+*.cert
+*.crt
+id_rsa
+id_rsa.pub
+
+# ============================================================================
+# Project-Specific
+# ============================================================================
+
+# User uploaded media files (IMPORTANT!)
+# Keep the directory structure but ignore uploaded files
+media/*
+!media/.gitkeep
+
+# Collected static files
+staticfiles/
+static_root/
+
+# Log files
+logs/
+*.log
+
+# Local development settings
+local_settings.py
+settings_local.py
+
+# ============================================================================
+# Git
+# ============================================================================
+*.orig
+.git-rewrite/
+
+# ============================================================================
+# Miscellaneous
+# ============================================================================
+.sass-cache/
+*.css.map
+*.sass.map
+*.scss.map
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# ============================================================================
+# KEEP THESE FILES (examples)
+# ============================================================================
+# !.gitkeep
+# !requirements.txt
+# !README.md
+# !manage.py
+# !.github/workflows/*.yml

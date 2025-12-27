@@ -1,0 +1,125 @@
+{% extends "blog/base.html"%}
+{% block content%}
+
+<!-- Header Section with Animation -->
+<article class="media content-section d-flex justify-content-between align-items-center" data-aos="fade-down">
+  <h2 class="d-flex align-items-center gradient-text animate__animated animate__fadeInLeft">
+    <i class="fas fa-blog me-3"></i>Blog Posts
+  </h2>
+  <a href="{% url 'post-create' %}" class="ml-2 text-decoration-none animate__animated animate__bounceIn animate__delay-1s" style="color: inherit;" title="Create New Post">
+    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle-fill right" viewBox="0 0 16 16">
+      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
+    </svg>
+  </a>
+</article>
+
+<!-- Search Form with Animation -->
+<form class="media animate__animated animate__fadeInUp" method="get" action="{% url 'blog_search' %}" id="searchForm" data-aos="fade-up" data-aos-delay="100">
+  <div class="input-group">
+      <span class="input-group-text bg-white border-end-0">
+        <i class="fas fa-search text-muted"></i>
+      </span>
+      <input type="text" name="q" class="form-control border-start-0" placeholder="Search blogs, users...">
+      <select name="type" class="form-select" style="max-width: 150px;">
+          <option value="all">All</option>
+          <option value="user">Users</option>
+          <option value="post">Blogs</option>
+      </select>
+      <button type="submit" class="btn btn-custom">
+        <i class="fas fa-search me-1"></i>Search
+      </button>
+  </div>
+</form>
+
+<!-- Blog Posts with Staggered Animation -->
+{% for post in posts %}
+<article class="media content-section d-flex align-items-start hover-lift" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+  <div class="row w-100 mt-2">
+    <div class="col-auto d-flex flex-column align-items-center">
+      <a href="{% url 'user-posts' post.author.username %}" class="position-relative">
+        <img class="rounded-circle article-img mb-2 animate__animated animate__pulse animate__infinite animate__slow" src="{{ post.author.profile.image.url }}" style="margin-right: 0%;" alt="{{ post.author.username }}">
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" style="font-size: 0.7rem;">
+          <i class="fas fa-check"></i>
+        </span>
+      </a>
+      <small class="text-muted"> 
+        {{post.likes.count}} 
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="grey" class="bi bi-hand-thumbs-up-fill" viewBox="0 3 16 14">
+            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a10 10 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733q.086.18.138.363c.077.27.113.567.113.856s-.036.586-.113.856c-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.2 3.2 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.8 4.8 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+        </svg>
+      </small>
+    </div>
+    <div class="col" style="padding: 0%;">
+      <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2" href="{% url 'user-posts' post.author.username %}">
+            <i class="fas fa-user-circle me-1"></i>{{ post.author }}
+          </a>
+          <small class="text-muted">
+            <i class="fas fa-clock me-1"></i>{{ post.date_posted|date:"F d, Y" }}
+          </small>
+        </div>
+        
+        <h2>
+          <a class="article-title" href="{% url 'post-detail' post.id %}">
+            {{ post.title }}
+          </a>
+        </h2>
+        <p class="article-content">{{ post.content|truncatechars:600|safe }}</p>
+        
+        <!-- Read More Button -->
+        <a href="{% url 'post-detail' post.id %}" class="btn btn-sm btn-outline-custom mt-2">
+          <i class="fas fa-book-reader me-1"></i>Read More
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
+{% endfor %}
+
+<!-- Pagination with Animation -->
+{% if is_paginated %}
+<div class="d-flex justify-content-center flex-wrap gap-2 my-4" data-aos="fade-up">
+  {% if page_obj.has_previous %}
+    <a class="btn btn-outline-custom btn-outline-custom_1 animate__animated animate__fadeIn" href="?page=1">
+      <i class="fas fa-angle-double-left me-1"></i>First
+    </a>
+    <a class="btn btn-outline-custom btn-outline-custom_1 animate__animated animate__fadeIn" href="?page={{ page_obj.previous_page_number }}">
+      <i class="fas fa-angle-left me-1"></i>Previous
+    </a>
+    <span class="btn btn-outline-custom btn-outline-custom_1 disabled">...</span>
+  {% endif %}
+
+  {% for num in page_obj.paginator.page_range %}
+    {% if page_obj.number == num %}
+      <a class="btn btn-custom animate__animated animate__pulse" href="?page={{ num }}">{{ num }}</a>
+    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+      <a class="btn btn-outline-custom btn-outline-custom_1 animate__animated animate__fadeIn" href="?page={{ num }}">{{ num }}</a>
+    {% endif %}
+  {% endfor %}
+
+  {% if page_obj.has_next %}
+    <span class="btn btn-outline-custom btn-outline-custom_1 disabled">...</span>
+    <a class="btn btn-outline-custom btn-outline-custom_1 animate__animated animate__fadeIn" href="?page={{ page_obj.next_page_number }}">
+      Next<i class="fas fa-angle-right ms-1"></i>
+    </a>
+    <a class="btn btn-outline-custom btn-outline-custom_1 animate__animated animate__fadeIn" href="?page={{ page_obj.paginator.num_pages }}">
+      Last<i class="fas fa-angle-double-right ms-1"></i>
+    </a>
+  {% endif %}
+</div>
+{% endif %}
+
+<!-- Empty State (if no posts) -->
+{% if not posts %}
+<div class="text-center py-5" data-aos="zoom-in">
+  <i class="fas fa-inbox fa-5x text-muted mb-3"></i>
+  <h3 class="text-muted">No blog posts yet</h3>
+  <p class="text-secondary">Be the first to create a post!</p>
+  <a href="{% url 'post-create' %}" class="btn btn-custom mt-3">
+    <i class="fas fa-plus-circle me-2"></i>Create Your First Post
+  </a>
+</div>
+{% endif %}
+
+{% endblock content %}

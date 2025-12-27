@@ -1,0 +1,93 @@
+{% extends "blog/base.html"%}
+{% block content%}
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'event-list' %}">Events</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ object.name }}</li>
+    </ol>
+</nav>   
+<article class="media content-section d-flex justify-content-between align-items-center" >
+    <h3 class="d-flex align-items-center">
+      Events
+      
+    </h3>
+    <a href="{% url 'event-create' %}" class="ml-2 text-decoration-none" style="color: inherit;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle-fill right" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
+      </svg>
+    </a>
+  
+  </article>
+    <article class="media content-section d-flex align-items-start" >
+
+      <div class="row w-100 mt-2">
+            <div class="col-auto d-flex flex-column align-items-center">
+                <a href="{% url 'user-events' object.organizer.username %}"><img class="rounded-circle article-img mb-2 " src="{{ object.organizer.profile.image.url }}" style="margin-right: 0%;"></a>
+                    
+                <div class="btn btn-outline-secondary btn-sm"> {{object.participants.count}} regs</div>
+                    
+                
+            </div>
+            <div class="col" style="padding: 0%;">
+                <div class="media-body">
+                    <div class="article-metadata d-flex justify-content-between align-items-center">
+                        <a class="mr-2" href="{% url 'user-events' object.organizer.username %}">
+                            {{ object.organizer.first_name }}
+                        </a>
+                        {% if object.organizer == user %}
+                        <div>
+                            <a href="{% url 'event-update' object.id %}" class="btn btn-secondary btn-sm mt-1 mb-1" > Update</a>
+                            <a href="{% url 'event-delete' object.id %}" class="btn btn-danger btn-sm mt-1 mb-1" > Delete</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <h2 class="article-title">{{ object.name }}</h2>
+                    <p class="article-content">
+                        {{ object.description|safe }}
+                        <br>
+                        <strong>
+                        DATE : {{ object.date|date:"F d, Y" }}
+                        </strong>
+                    </p>
+                    {% if user.is_authenticated %}
+                        {% if user != object.organizer %}
+                            {% if reg %}
+                                <div class="text-muted"> You are already registered for this event</div> 
+                            {% else %}
+                                <form action="{% url 'event-register' event.pk %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-outline-info btn-outline-custom">Register</button>
+                                </form>
+                                <small class="text-muted"> Once registered, you cannot un-register!</small> 
+                            {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                        {% else %}
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="media content-section" >
+                            <h3 class="article-content"> Registered Participants : {{ object.participants.count }}                          </h3>
+                            <a href="{% url 'attendance' object.id %}" class="btn btn-secondary btn-sm mt-1 mb-1" > Take attendance </a>
+                            
+                </article>
+
+                        {% endif %}
+                    {% else %}
+                    <div class="border-top pt-3">
+                        <small class="text-muted">
+                            <a class="ml-2" href="{% url 'login' %}">Login to Register for Event</a>
+                        </small>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </article>
+                    {% endif %}
+                    
+            
+
+{% endblock content %}
