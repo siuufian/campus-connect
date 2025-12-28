@@ -72,9 +72,7 @@ def UserPostView(request,username):
     user=User.objects.get(username=username)
 
     posts_by_user = Post.objects.filter(author=user).order_by('-date_posted')
-    liked_posts= user.liked_posts.all()
     posts_count = posts_by_user.count()
-    liked_count = liked_posts.count()
 
     paginator_posts = Paginator(posts_by_user,5)
     page_number_posts = request.GET.get('postspg')
@@ -85,24 +83,12 @@ def UserPostView(request,username):
     except EmptyPage:
         posts_by_user = paginator_posts.page(paginator_posts.num_pages)
 
-
-    paginator_likes = Paginator(liked_posts,5)
-    page_number_likes = request.GET.get('likedpg')
-    try:
-        liked_posts = paginator_likes.page(page_number_likes)
-    except PageNotAnInteger:
-        liked_posts = paginator_likes.page(1)
-    except EmptyPage:
-        liked_posts = paginator_likes.page(paginator_likes.num_pages)
-
     is_owner= (request.user == user)
     context = {
         'profile_user' : user,
         'is_owner':is_owner,
         'posts_by_user':posts_by_user,
-        'liked_posts':liked_posts,
         'total_posts':posts_count,
-        'total_liked':liked_count,
         'cal':'blogs'
     }
     return render(request,'blog/user_posts.html',context)
@@ -112,10 +98,6 @@ class PostDetailView(LoginRequiredMixin,DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        liked=False
-        if self.object.likes.filter(id=self.request.user.id).exists():
-            liked=True
-        context['already_liked']=liked
         context['cal'] = 'blogs'
         return context
 
@@ -171,21 +153,6 @@ class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin, UpdateView):
 def about(request):
     return render(request,'blog/about.html',{'title' : 'About' , 'cal':'blogs'})
 
-@login_required
-def LikeView(request, pk):
-    post=get_object_or_404(Post, id=request.POST.get('post_id'))
-    liked=False
-    if post.likes.filter(id=request.user.id).exists():
-        post.likes.remove(request.user)
-        liked=False
-    else:
-        post.likes.add(request.user)
-        likes=True
-    
-    return HttpResponseRedirect(reverse('post-detail', args=[str(pk)]))
-
-
-    
 
 def blogpost_list(request):
     posts = Post.objects.all()
