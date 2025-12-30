@@ -1,8 +1,8 @@
 {% extends "blog/base.html"%}
+{% load static %}
 {% block content%}
 
-<!-- Breadcrumb Navigation -->
-<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" data-aos="fade-right">
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb bg-white p-3 rounded shadow-sm">
         <li class="breadcrumb-item">
             <a href="{% url 'blog-home' %}" class="text-decoration-none">
@@ -11,26 +11,22 @@
         </li>
         <li class="breadcrumb-item active" aria-current="page">{{ object.title|truncatewords:5 }}</li>
     </ol>
-</nav>   
+</nav>
 
-<!-- Post Detail Article -->
-<article class="media content-section d-flex align-items-start" data-aos="fade-up">
+<article class="media content-section d-flex align-items-start">
   <div class="row w-100 mt-2">
-    <!-- Author Info Sidebar -->
-    <div class="col-auto d-flex flex-column align-items-center" data-aos="fade-right" data-aos-delay="100">
+    <div class="col-auto d-flex flex-column align-items-center">
         <a href="{% url 'user-posts' object.author.username %}" class="position-relative mb-3">
-            <img class="rounded-circle article-img animate__animated animate__pulse animate__infinite animate__slow" src="{{ object.author.profile.image.url }}" style="margin-right: 0%;" alt="{{ object.author.username }}">
+            <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}" style="margin-right: 0%;" alt="{{ object.author.username }}">
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
                 <i class="fas fa-check"></i>
             </span>
         </a>
     </div>
 
-    <!-- Main Content -->
     <div class="col" style="padding: 0%;">
         <div class="media-body">
-            <!-- Article Metadata -->
-            <div class="article-metadata d-flex justify-content-between align-items-center flex-wrap gap-2 p-3 mb-3" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 12px;" data-aos="fade-left" data-aos-delay="100">
+            <div class="article-metadata d-flex justify-content-between align-items-center flex-wrap gap-2 p-3 mb-3" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 12px;">
                 <div>
                     <a class="mr-2 text-decoration-none" href="{% url 'user-posts' object.author.username %}">
                         <i class="fas fa-user-circle me-1"></i><strong>{{ object.author }}</strong>
@@ -51,19 +47,14 @@
                 {% endif %}
             </div>
 
-            <!-- Article Title -->
-            <h1 class="article-title mb-4 gradient-text" data-aos="fade-up" data-aos-delay="200">
-                {{ object.title }}
-            </h1>
+            <h1 class="article-title mb-4 gradient-text">{{ object.title }}</h1>
 
-            <!-- Article Content -->
-            <div class="article-content p-4" style="background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); line-height: 1.8;" data-aos="fade-up" data-aos-delay="300">
+            <div class="article-content p-4" style="background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); line-height: 1.8;">
                 {{ object.content|safe }}
             </div>
 
-            <!-- Login Prompt for Non-authenticated Users -->
             {% if not user.is_authenticated %}
-            <div class="border-top pt-4 mt-4 text-center" data-aos="zoom-in" data-aos-delay="400">
+            <div class="border-top pt-4 mt-4 text-center">
                 <div class="card border-0 shadow-sm p-4" style="border-radius: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
                     <i class="fas fa-user-circle fa-3x mb-3"></i>
                     <h5 class="mb-3">Join our community</h5>
@@ -75,8 +66,7 @@
             </div>
             {% endif %}
 
-            <!-- Share Section -->
-            <div class="mt-4 p-4 card border-0 shadow-sm" style="border-radius: 12px;" data-aos="fade-up" data-aos-delay="500">
+            <div class="mt-4 p-4 card border-0 shadow-sm" style="border-radius: 12px;">
                 <h5 class="mb-3">
                     <i class="fas fa-share-alt me-2 text-primary"></i>Share this post
                 </h5>
@@ -95,22 +85,50 @@
                     </button>
                 </div>
             </div>
-
-            <!-- Related Actions -->
-            <div class="mt-4 d-flex gap-2 justify-content-center flex-wrap" data-aos="fade-up" data-aos-delay="600">
-                <a href="{% url 'blog-home' %}" class="btn btn-outline-custom px-4" style="border-radius: 50px;">
-                    <i class="fas fa-arrow-left me-2"></i>Back to Blogs
-                </a>
-                <a href="{% url 'user-posts' object.author.username %}" class="btn btn-custom px-4" style="border-radius: 50px;">
-                    <i class="fas fa-user me-2"></i>View Author's Posts
-                </a>
-            </div>
         </div>
     </div>
   </div>
 </article>
 
-<!-- Share Scripts -->
+<!-- Comments Section -->
+{% if user.is_authenticated %}
+<div class="content-section mt-4">
+    <h3 class="mb-4"><i class="fas fa-comments me-2"></i>Comments ({{ object.comments.count }})</h3>
+    
+    <form method="POST" action="{% url 'add-comment' object.id %}" class="mb-4">
+        {% csrf_token %}
+        <div class="mb-3">
+            <textarea name="content" class="form-control" rows="3" placeholder="Write your comment..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-custom">
+            <i class="fas fa-paper-plane me-2"></i>Post Comment
+        </button>
+    </form>
+
+    <div id="comments-list">
+        {% for comment in object.comments.all %}
+            {% if not comment.parent %}
+                {% include 'blog/comment_item.html' with comment=comment %}
+            {% endif %}
+        {% empty %}
+            <p class="text-muted text-center py-4">
+                <i class="fas fa-comment-slash fa-3x mb-3 d-block"></i>
+                No comments yet. Be the first to comment!
+            </p>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<div class="mt-4 d-flex gap-2 justify-content-center flex-wrap">
+    <a href="{% url 'blog-home' %}" class="btn btn-outline-custom px-4" style="border-radius: 50px;">
+        <i class="fas fa-arrow-left me-2"></i>Back to Blogs
+    </a>
+    <a href="{% url 'user-posts' object.author.username %}" class="btn btn-custom px-4" style="border-radius: 50px;">
+        <i class="fas fa-user me-2"></i>View Author's Posts
+    </a>
+</div>
+
 <script>
     const currentUrl = window.location.href;
     const postTitle = "{{ object.title|escapejs }}";
@@ -130,6 +148,28 @@
     function copyToClipboard() {
         navigator.clipboard.writeText(currentUrl).then(() => {
             alert('Link copied to clipboard!');
+        });
+    }
+
+    function toggleReplyForm(commentId) {
+        const form = document.getElementById(`reply-form-${commentId}`);
+        form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function voteComment(commentId, voteType) {
+        fetch(`/comments/vote/${commentId}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: `vote_type=${voteType}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById(`score-${commentId}`).textContent = data.score;
+            document.getElementById(`upvotes-${commentId}`).textContent = data.upvotes;
+            document.getElementById(`downvotes-${commentId}`).textContent = data.downvotes;
         });
     }
 </script>

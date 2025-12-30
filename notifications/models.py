@@ -10,6 +10,7 @@ class Notification(models.Model):
     NOTIFICATION_TYPES = (
         ('post', 'New Post'),
         ('comment', 'New Comment'),
+        ('reply', 'Comment Reply'),
         ('like', 'Post Liked'),
         ('event_registration', 'Event Registration'),
         ('event_reminder', 'Event Reminder'),

@@ -23,7 +23,8 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'blog.apps.BlogConfig',
     'events.apps.EventsConfig',
-    'notifications.apps.NotificationsConfig',  # Added notifications app
+    'notifications.apps.NotificationsConfig',
+    'comments.apps.CommentsConfig',
     'crispy_forms',
     'django_ckeditor_5',
     'crispy_bootstrap4',
