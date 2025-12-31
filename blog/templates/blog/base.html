@@ -24,7 +24,7 @@
           var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             events: '/{{ cal }}/api/posts/',
-            eventColor: '#1E90FF',
+            eventColor: '#8B6F47',
             dateClick: function(info) {
               window.location.href = `/{{ cal }}/calendar/${info.dateStr}`;
             },
@@ -71,6 +71,9 @@
                       </a>
                   </div>
                   <div class="navbar-nav ml-auto">
+                      <a class="nav-item nav-link theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                      </a>
                       {% if user.is_authenticated %}
                         {% if user.is_superuser %}
                           <a class="nav-item nav-link page-link" href="/admin/">
@@ -84,9 +87,6 @@
                               {{ unread_notifications_count }}
                             </span>
                           {% endif %}
-                        </a>
-                        <a class="nav-item nav-link theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
-                          <i class="fas fa-moon" id="theme-icon"></i>
                         </a>
                         <li class="nav-item dropdown">
                           <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
@@ -232,8 +232,6 @@
         document.getElementById('theme-icon').classList.add('fa-sun');
       }
       
-      document.body.classList.add('page-loaded');
-      
       const pageLinks = document.querySelectorAll('a.page-link');
       pageLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -247,37 +245,7 @@
           }
         });
       });
-      
-      const gradientEnabled = localStorage.getItem('gradientEnabled') !== 'false';
-      if (gradientEnabled) {
-        enableGradients();
-      }
     });
-
-    function enableGradients() {
-      document.querySelectorAll('h1, h2, h3').forEach(el => {
-        if (!el.classList.contains('gradient-text-animate')) {
-          el.classList.add('gradient-text-animate');
-        }
-      });
-      
-      document.querySelectorAll('.btn-custom').forEach(el => {
-        if (!el.classList.contains('gradient-animate')) {
-          el.classList.add('gradient-animate');
-        }
-      });
-      
-      document.querySelectorAll('.content-section, .sidebar').forEach(el => {
-        if (!el.classList.contains('gradient-border-animate')) {
-          el.classList.add('gradient-border-animate');
-        }
-      });
-      
-      const navbar = document.querySelector('.navbar');
-      if (navbar && !navbar.classList.contains('gradient-animate')) {
-        navbar.classList.add('gradient-animate');
-      }
-    }
 
     function toggleTheme() {
       const body = document.body;
