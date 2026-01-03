@@ -15,7 +15,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Q
 
 # Create your views here.
-class EventListView(LoginRequiredMixin,ListView):
+class EventListView(ListView):
     model = Event
     template_name = 'events/event_list.html'
     context_object_name = 'events'
@@ -62,7 +62,7 @@ class EventRegListView(LoginRequiredMixin,ListView):
         context['cal'] = "events"
         return context
 
-class EventDetailView(LoginRequiredMixin,DetailView):
+class EventDetailView(DetailView):
     model = Event
 
     def get_context_data(self, **kwargs):

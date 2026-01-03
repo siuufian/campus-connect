@@ -38,11 +38,11 @@ def home(request):
     }
     return render(request,'blog/home.html',context) #use context in  the template
 
-class PostListView(LoginRequiredMixin,ListView):
-    model = Post #Which model to query to get list
-    template_name='blog/home.html'   # <app> / <model>_<viewtype>.html
-    context_object_name = 'posts' # object_name was by default object_list
-    ordering = ['-date_posted'] #default oldest -> newest
+class PostListView(ListView):
+    model = Post
+    template_name='blog/home.html'
+    context_object_name = 'posts'
+    ordering = ['-date_posted']
     paginate_by = 5
 
     def get_context_data(self, **kwargs):
@@ -93,7 +93,7 @@ def UserPostView(request,username):
     }
     return render(request,'blog/user_posts.html',context)
 
-class PostDetailView(LoginRequiredMixin,DetailView):
+class PostDetailView(DetailView):
     model = Post
     
     def get_context_data(self, **kwargs):
