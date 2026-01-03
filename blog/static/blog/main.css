@@ -8,8 +8,8 @@
   --border-color: #DEE2E6;
 }
 
-/* Dark Theme Variables */
-body.dark-mode {
+/* Dark Theme Variables - DEFAULT */
+body, body.dark-mode {
   --bg-color: #242124;
   --text-color: #FFD700;
   --navbar-bg: #1A1718;
