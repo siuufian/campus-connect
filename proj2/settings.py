@@ -52,7 +52,9 @@ ROOT_URLCONF = 'proj2.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            # Explicitly exclude docs folder from template directories
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -92,6 +94,11 @@ USE_TZ = True
 
 # Static & Media
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+    # Explicitly exclude docs folder from static file directories
+]
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
@@ -103,7 +110,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'blog-home'
 LOGIN_URL = 'login'
 
-# CKEditor config (unchanged)
+# CKEditor config
 customColorPalette = [
     {'color': 'hsl(4, 90%, 58%)', 'label': 'Red'},
     {'color': 'hsl(340, 82%, 52%)', 'label': 'Pink'},

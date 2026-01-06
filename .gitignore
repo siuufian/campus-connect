@@ -134,9 +134,10 @@ coverage.xml
 .cache
 
 # ============================================================================
-# Documentation
+# Documentation - Keep docs folder but ignore build artifacts
 # ============================================================================
 docs/_build/
+docs/.doctrees/
 site/
 .mkdocs/
 
